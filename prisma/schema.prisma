@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model TeacherTable {
+  tId       String         @id @default(uuid())
+  tFullName String
+  tSubject  String
+  tStudents StudentTable[]
+}
+
+model StudentTable {
+  sId             String       @id @default(uuid())
+  sFullName       String
+  sEmail          String       @unique
+  sGender         String
+  sPhoneNumber    String       @unique
+  teacherTable    TeacherTable @relation(fields: [teacherTableTId], references: [tId], onDelete: Cascade, onUpdate: Cascade)
+  teacherTableTId String
+}
