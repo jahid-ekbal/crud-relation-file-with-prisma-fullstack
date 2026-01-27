@@ -11,7 +11,8 @@ const fakerGenerator = () => {
 
 	const email = internet.email({ firstName, lastName });
 
-	const phoneNumber = phone.number({ style: "national" });
+	const rawPhoneNumber = phone.number({ style: "national" });
+	const phoneNumber = rawPhoneNumber.replace(/\s+/g, "").replace(/^0+/, "");
 
 	const fullName = `${firstName} ${lastName}`;
 
